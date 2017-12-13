@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^(oauth2\.php|.\.)
+
+#开启 不支付目录形式传参，必须以query string
+RewriteRule ^oauth2/([a-zA-Z0-9_]+)(.*)?$ oauth2.php?m=$1&$2 [QSA,L]
+RewriteRule ^manage/([a-zA-Z0-9_]+)(.*)?$ manage.php?m=$1&$2 [QSA,L]
+
+#关闭 兼容目录形式的传参
+#RewriteRule ^oauth2/([a-zA-Z0-9_]+)(/[0-9a-zA-Z/]+)?(\?(.*)?)?$ oauth2.php?m=$1&$2&$3 [QSA,L]
+</IfModule>
+ErrorDocument 500 "<h2>Application error</h2>symfony applicationfailed to start properly"
+
+
+
